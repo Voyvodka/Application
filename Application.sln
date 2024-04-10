@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Web", "App.Web\App.Web.csproj", "{78E895FD-3E89-4598-B3F9-99EB6F05190B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Data", "App.Data\App.Data.csproj", "{C3455219-D030-4C37-928C-1578DC95686A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Services", "App.Services\App.Services.csproj", "{390AAE5B-F791-4F21-B742-70EB771FE88A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78E895FD-3E89-4598-B3F9-99EB6F05190B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E895FD-3E89-4598-B3F9-99EB6F05190B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E895FD-3E89-4598-B3F9-99EB6F05190B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E895FD-3E89-4598-B3F9-99EB6F05190B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3455219-D030-4C37-928C-1578DC95686A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3455219-D030-4C37-928C-1578DC95686A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3455219-D030-4C37-928C-1578DC95686A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3455219-D030-4C37-928C-1578DC95686A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{390AAE5B-F791-4F21-B742-70EB771FE88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{390AAE5B-F791-4F21-B742-70EB771FE88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{390AAE5B-F791-4F21-B742-70EB771FE88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{390AAE5B-F791-4F21-B742-70EB771FE88A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7BCB63D-977B-46FE-B347-E7C38A46E454}
+	EndGlobalSection
+EndGlobal
