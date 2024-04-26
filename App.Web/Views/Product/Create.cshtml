@@ -1,0 +1,30 @@
+@model StockViewModel
+
+<form asp-action="Create">
+    <h3 class="text-center">Ürün Oluşturma</h3>
+    @Html.AntiForgeryToken()
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" asp-for="@Model.Name" />
+        <label for="Name">Ürün Adı</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" asp-for="@Model.Barcode" />
+        <label for="Barcode">Barkod</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" class="form-control" asp-for="@Model.PackageSize" />
+        <label for="PackageSize">Paket Boyutu</label>
+    </div>
+    <div class="form-floating mb-3">
+        <select class="form-select" asp-for="@Model.UnitId" aria-label="Birim Seçiniz">
+            @foreach (var unit in Model.Units)
+            {
+                <option value="@unit.Id">@unit.Name</option>
+            }
+        </select>
+        <label for="UnitId">Birim Seçiniz</label>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-sm btn-info">Kaydet</button>
+    </div>
+</form>

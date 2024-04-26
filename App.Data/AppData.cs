@@ -1,3 +1,6 @@
+using App.Data.Model.Entities.General;
+using App.Data.Model.Entities.Product;
+using App.Data.Model.SystemEntities;
 using App.Data.Model.SystemEntities.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +15,13 @@ public class AppData : IdentityDbContext<AppUser, AppRole, string>
     public AppData(DbContextOptions options) : base(options)
     {
     }
+
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<StockMovement> StockMovements { get; set; }
+    public DbSet<Unit> Units { get; set; }
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
 #if (DEBUG)

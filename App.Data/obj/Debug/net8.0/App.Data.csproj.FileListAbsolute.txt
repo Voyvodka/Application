@@ -10,3 +10,4 @@
 /Users/sametozkan/Projects/Application/App.Data/obj/Debug/net8.0/refint/App.Data.dll
 /Users/sametozkan/Projects/Application/App.Data/obj/Debug/net8.0/App.Data.pdb
 /Users/sametozkan/Projects/Application/App.Data/obj/Debug/net8.0/ref/App.Data.dll
+/Users/sametozkan/Projects/Application/App.Data/obj/Debug/net8.0/App.Data.sourcelink.json

@@ -110,3 +110,4 @@
 /Users/sametozkan/Projects/Application/App.Web/obj/Debug/net8.0/App.Web.pdb
 /Users/sametozkan/Projects/Application/App.Web/obj/Debug/net8.0/App.Web.genruntimeconfig.cache
 /Users/sametozkan/Projects/Application/App.Web/obj/Debug/net8.0/ref/App.Web.dll
+/Users/sametozkan/Projects/Application/App.Web/obj/Debug/net8.0/App.Web.sourcelink.json
