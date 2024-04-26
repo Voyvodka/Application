@@ -37,7 +37,7 @@ public class ProductController : Controller
         stock.ClientId = 1;
         if (await _stockRepo.CreateAsync(stock))
         {
-            return View("EditorShow", new { id = stock.Id });
+            return View("Show", new { id = stock.Id });
         }
         return View(new StockViewModel()
         {
