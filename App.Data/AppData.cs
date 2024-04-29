@@ -17,6 +17,7 @@ public class AppData : IdentityDbContext<AppUser, AppRole, string>
     }
 
     public DbSet<Client> Clients { get; set; }
+    public DbSet<Customer> Customers { get; set; }
     public DbSet<Stock> Stocks { get; set; }
     public DbSet<StockMovement> StockMovements { get; set; }
     public DbSet<Unit> Units { get; set; }

@@ -1,12 +1,13 @@
 using App.Data;
+using App.Data.Enums;
 using App.Data.Model.Entities.Product;
 using App.Data.Repositories.Product;
-using App.Data.ViewModels.Stock;
+using App.Data.ViewModels;
+using App.Services.Extenders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Web.Controllers;
-
 public class ProductController : Controller
 {
     private readonly StockRepository _stockRepo;
@@ -24,38 +25,36 @@ public class ProductController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create(StockViewModel stock)
+    public async Task<IActionResult> Create(Stock stock)
     {
-        stock.Units = [.. _context.Units];
+        if (stock?.Id > 0)
+            stock = await _stockRepo.GetItemAsync(stock.Id);
+        stock.Units = [.. _context.Units.AsNoTracking()];
         return View(stock);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Stock stock)
+    public async Task<IActionResult> SaveItem(Stock stock)
     {
         stock.CreatorId = "598c444b-2012-4140-98ef-825d66e401e0";
         stock.ClientId = 1;
         if (await _stockRepo.CreateAsync(stock))
         {
-            return View("Show", new { id = stock.Id });
+            return RedirectToAction("EditorShow", new { id = stock.Id });
         }
-        return View(new StockViewModel()
-        {
-            Name = stock.Name,
-            Barcode = stock.Barcode,
-            UnitId = stock.UnitId,
-            PackageSize = stock.PackageSize,
-            Units = [.. _context.Units]
-        });
+        stock.Units = [.. _context.Units.AsNoTracking()];
+        return View("Create", stock);
     }
 
-    // public IActionResult ListView()
-    // {
-    //     return View();
-    // }
-
-    public async Task<List<Stock>> GetStocks()
+    public async Task<IActionResult> EditorShow(int id)
     {
-        return await _stockRepo.GetList().Include(c => c.Unit).ToListAsync();
+        var item = await _stockRepo.GetItemForShow(id);
+        return View(item);
+    }
+
+    public async Task<IActionResult> StockMovement(CreateStockMovementViewModel model)
+    {
+        model.Types = StockMovementType.InComing.GetList();
+        return View(model);
     }
 }

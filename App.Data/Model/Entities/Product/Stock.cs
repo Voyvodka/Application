@@ -27,6 +27,9 @@ public class Stock : BaseDeleteEntity
 
 
     public ICollection<StockMovement> StockMovements { get; set; }
+
+    [NotMapped]
+    public List<Unit> Units { get; set; }
 }
 
 public class StockMovement : BaseEntity
@@ -43,5 +46,6 @@ public class StockMovement : BaseEntity
 
     public StockMovementType Type { get; set; }
 
-
+    public int CustomerId { get; set; }
+    public Customer Customer { get; set; }
 }

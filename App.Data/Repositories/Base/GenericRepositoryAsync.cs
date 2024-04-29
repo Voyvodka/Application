@@ -8,6 +8,9 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
     protected DbContext Context;
     protected DbSet<T> DbSet;
 
+    public AppData Conn => Context as AppData;
+
+
     public GenericRepositoryAsync(DbContext context)
     {
         Context = context;
