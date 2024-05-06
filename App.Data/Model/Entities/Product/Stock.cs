@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using App.Data.Enums;
 using App.Data.Model.Entities.Base;
 using App.Data.Model.Entities.General;
+using App.Data.Model.Entities.Storage;
 using App.Data.Model.SystemEntities;
 
 namespace App.Data.Model.Entities.Product;
@@ -48,4 +49,7 @@ public class StockMovement : BaseEntity
 
     public int CustomerId { get; set; }
     public Customer Customer { get; set; }
+
+    public int WarehouseId { get; set; }
+    public Warehouse Warehouse { get; set; }
 }

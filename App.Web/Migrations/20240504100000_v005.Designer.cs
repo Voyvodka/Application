@@ -4,6 +4,7 @@ using App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Web.Migrations
 {
     [DbContext(typeof(AppData))]
-    partial class AppDataModelSnapshot : ModelSnapshot
+    [Migration("20240504100000_v005")]
+    partial class v005
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,16 +129,11 @@ namespace App.Web.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("StockId");
-
-                    b.HasIndex("WarehouseId");
 
                     b.ToTable("StockMovements");
                 });
@@ -423,17 +421,9 @@ namespace App.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Data.Model.Entities.Storage.Warehouse", "Warehouse")
-                        .WithMany("StockMovements")
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
 
                     b.Navigation("Stock");
-
-                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("App.Data.Model.Entities.Storage.Warehouse", b =>
@@ -513,11 +503,6 @@ namespace App.Web.Migrations
                 });
 
             modelBuilder.Entity("App.Data.Model.Entities.Product.Stock", b =>
-                {
-                    b.Navigation("StockMovements");
-                });
-
-            modelBuilder.Entity("App.Data.Model.Entities.Storage.Warehouse", b =>
                 {
                     b.Navigation("StockMovements");
                 });

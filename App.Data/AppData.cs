@@ -1,5 +1,6 @@
 using App.Data.Model.Entities.General;
 using App.Data.Model.Entities.Product;
+using App.Data.Model.Entities.Storage;
 using App.Data.Model.SystemEntities;
 using App.Data.Model.SystemEntities.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -21,6 +22,7 @@ public class AppData : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Stock> Stocks { get; set; }
     public DbSet<StockMovement> StockMovements { get; set; }
     public DbSet<Unit> Units { get; set; }
+    public DbSet<Warehouse> Warehouses { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

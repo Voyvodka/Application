@@ -1,0 +1,38 @@
+@model Warehouse
+
+<div class="card">
+    <div class="card-body px-2">
+        <form asp-action="SaveItem">
+            <h3 class="text-center">Depo Oluşturma</h3>
+            @Html.HiddenFor(c => c.Id)
+            @Html.AntiForgeryToken()
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" asp-for="@Model.Name" />
+                <label for="Name">Depo Adı</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" asp-for="@Model.ClientId" aria-label="Birim">
+                    <option></option>
+                    @foreach (var client in Model.Clients)
+                    {
+                        <option value="@client.Id">@client.Name</option>
+                    }
+                </select>
+                <label for="ClientId">Client</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" asp-for="@Model.CustomerId" aria-label="Birim">
+                    <option></option>
+                    @foreach (var customer in Model.Customers)
+                    {
+                        <option value="@customer.Id">@customer.Name</option>
+                    }
+                </select>
+                <label for="CustomerId">Müşteri</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-sm btn-info">Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>
