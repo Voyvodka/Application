@@ -8,11 +8,6 @@
                 <label for="StockId">Ürün</label>
             </div>
             <div class="form-floating mb-3">
-                <select class="form-select" id="customerId" name="CustomerId">
-                </select>
-                <label for="CustomerId">Tedarikçi</label>
-            </div>
-            <div class="form-floating mb-3">
                 <select class="form-select" id="type" name="Type">
                     @foreach (var item in Model.Types)
                     {
@@ -28,7 +23,15 @@
                 </select>
                 <label for="Type">İşlem Türü</label>
             </div>
-
+            <div class="form-floating mb-3">
+                <select class="form-select" id="customerId" name="CustomerId">
+                </select>
+                <label for="CustomerId">Tedarikçi</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" min="0" asp-for="@Model.Amount" />
+                <label for="Amount">Miktar</label>
+            </div>
         </div>
     </div>
 </div>
@@ -36,7 +39,7 @@
 <script>
     $(() => {
         $("#stockId").select2({
-            placeholder: "",
+            placeholder: "Seçiniz",
             language: "tr",
             ajax: {
                 url: '/ListApi/GetStocks',
@@ -51,13 +54,14 @@
             },
         });
         $("#customerId").select2({
-            placeholder: "",
+            placeholder: "Seçiniz",
             language: "tr",
             ajax: {
                 url: '/ListApi/GetCustomers',
                 data: function (params) {
                     return {
                         q: params.term,
+                        type: $('#type').val()
                     };
                 },
                 processResults: function (data) {

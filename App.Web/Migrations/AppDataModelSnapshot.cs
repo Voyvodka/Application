@@ -35,7 +35,7 @@ namespace App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("App.Data.Model.Entities.Product.Customer", b =>
@@ -51,7 +51,7 @@ namespace App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("App.Data.Model.Entities.Product.Stock", b =>
@@ -100,7 +100,7 @@ namespace App.Web.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("Stocks");
+                    b.ToTable("Stocks", (string)null);
                 });
 
             modelBuilder.Entity("App.Data.Model.Entities.Product.StockMovement", b =>
@@ -137,7 +137,7 @@ namespace App.Web.Migrations
 
                     b.HasIndex("WarehouseId");
 
-                    b.ToTable("StockMovements");
+                    b.ToTable("StockMovements", (string)null);
                 });
 
             modelBuilder.Entity("App.Data.Model.Entities.Storage.Warehouse", b =>
@@ -163,7 +163,7 @@ namespace App.Web.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Warehouses");
+                    b.ToTable("Warehouses", (string)null);
                 });
 
             modelBuilder.Entity("App.Data.Model.SystemEntities.Unit", b =>
@@ -179,7 +179,7 @@ namespace App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units");
+                    b.ToTable("Units", (string)null);
                 });
 
             modelBuilder.Entity("App.Data.Model.SystemEntities.User.AppRole", b =>

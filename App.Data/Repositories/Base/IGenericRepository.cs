@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using App.Data.ViewModels.Generic;
 
 namespace App.Data.Repositories.Base;
 
@@ -13,4 +14,5 @@ public interface IGenericRepositoryAsync<T> where T : class
 
     Task<bool> DeleteAsync(object id);
     Task<bool> DeleteAsync(T item);
+    Task<List<SelectListItem>> GetSelectListItems(object id, Expression<Func<T, bool>> filter = null);
 }

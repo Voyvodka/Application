@@ -1,4 +1,5 @@
 using App.Data;
+using App.Data.Enums;
 using App.Data.Repositories.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,8 @@ public class ListApiController : Controller
     {
         q ??= "";
         var _repo = new StockRepository(_context);
-        var list = await _repo.GetList(d =>
-                                d.Name.ToLower().Contains(q.ToLower()) ||
-                                d.Barcode.ToLower().Contains(q.ToLower()))
+        var list = await _repo.GetList(d => d.Name.ToLower().Contains(q.ToLower())
+                                        || d.Barcode.ToLower().Contains(q.ToLower()))
                 .Include(d => d.Unit)
                 .OrderBy(d => d.Name)
                 .Select(d => new { d.Id, text = $"{d.Name} - {d.Barcode} - {d.PackageSizeWithUnit}" })
@@ -28,7 +28,8 @@ public class ListApiController : Controller
         return Ok(list);
     }
 
-    public async Task<IActionResult> GetCustomers(string q)
+    //TODO type a göre customer gelecek /customer a type eklendikten sonra
+    public async Task<IActionResult> GetCustomers(string q, StockMovementType type)
     {
         q ??= "";
         var _repo = new CustomerRepository(_context);

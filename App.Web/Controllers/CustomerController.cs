@@ -18,6 +18,8 @@ public class CustomerController : Controller
         _customerRepo = new CustomerRepository(_context);
     }
 
+    public ActionResult Index() => RedirectToAction("List");
+
     public IActionResult List()
     {
         return View(_customerRepo.GetList().AsNoTracking().ToList());

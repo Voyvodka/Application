@@ -16,6 +16,8 @@ public class WarehouseController : Controller
         _repoWarehouse = new WarehouseRepository(_context);
     }
 
+    public ActionResult Index() => RedirectToAction("List");
+
     public ActionResult List()
     {
         return View(_repoWarehouse.GetList()

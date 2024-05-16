@@ -11,13 +11,16 @@ namespace App.Web.Controllers;
 public class ProductController : Controller
 {
     private readonly StockRepository _stockRepo;
+    private readonly CustomerRepository _customerRepo;
     private AppData _context;
     public ProductController()
     {
         _context = new AppData();
         _stockRepo = new StockRepository(_context);
+        _customerRepo = new CustomerRepository(_context);
     }
 
+    public ActionResult Index() => RedirectToAction("List");
 
     public IActionResult List()
     {
@@ -36,8 +39,8 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> SaveItem(Stock stock)
     {
-        stock.CreatorId = "598c444b-2012-4140-98ef-825d66e401e0";
-        stock.ClientId = 1;
+        stock.CreatorId = _context.Users.FirstOrDefault().Id;
+        stock.ClientId = _context.Clients.FirstOrDefault().Id;
         if (await _stockRepo.CreateAsync(stock))
         {
             return RedirectToAction("EditorShow", new { id = stock.Id });
