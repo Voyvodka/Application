@@ -1,0 +1,37 @@
+@model bool?
+
+@{
+    var useSwitch = ViewData["useSwitch"] as bool? ?? false;
+    var checkboxSize = ViewData["checkboxSize"] as string ?? "sm";
+    var switchLabel = ViewData["switchLabel"] as string ?? "Switch label";
+    var label = ViewData["label"] as string ?? "Checkbox label";
+    var isChecked = Model ?? false;
+
+    var checkboxClass = $"form-check form-check-custom form-check-solid form-check-{checkboxSize}";
+
+}
+
+@if (useSwitch)
+{
+    <div class="form-check form-switch form-check-custom form-check-solid">
+        <input class="form-check-input" type="checkbox" id="customSwitch" @if (isChecked)
+        {
+            <text>checked</text>
+        }>
+        <label class="form-check-label" for="customSwitch">
+            @switchLabel
+        </label>
+    </div>
+}
+else
+{
+    <div class="@checkboxClass">
+        <input class="form-check-input" type="checkbox" id="customCheckbox" @if (isChecked)
+        {
+            <text>checked</text>
+        }>
+        <label class="form-check-label" for="customCheckbox">
+            @label
+        </label>
+    </div>
+}

@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using App.Data.Model.Entities.Base;
-using App.Data.ViewModels.Generic;
+using App.Services.Extenders;
+using App.Services.Reflection;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Data.Repositories.Base;
@@ -11,6 +13,20 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
     protected DbSet<T> DbSet;
 
     public AppData Conn => Context as AppData;
+
+    private string _currentUserId;
+    public string CurrentUserId
+    {
+        get
+        {
+            return _currentUserId;
+        }
+        set
+        {
+            _currentUserId = value;
+            Conn.CurrentUserId = _currentUserId;
+        }
+    }
 
 
     public GenericRepositoryAsync(DbContext context)
@@ -37,6 +53,14 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
 
     public virtual async Task<bool> CreateAsync(T item)
     {
+        if (typeof(T).IsSubclassOf(typeof(BaseDeleteEntity)) || typeof(T).IsSubclassOf(typeof(BaseCreateEntity)))
+        {
+            if (CurrentUserId.IsEmpty())
+                throw new Exception("CREATE Geçersiz kullanıcı bilgisi");
+
+            Digger.SetObjectValue(item, "CreatorId", CurrentUserId);
+            Digger.SetObjectValue(item, "CreatedOn", DateTime.Now);
+        }
         DbSet.Add(item);
         await Context.SaveChangesAsync();
         return true;
@@ -68,7 +92,7 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
     {
         if (!typeof(T).IsSubclassOf(typeof(BaseEntity)))
         {
-            return new List<SelectListItem>();
+            return [];
         }
         IQueryable<T> query = DbSet.AsNoTracking();
         if (filter != null)
@@ -76,7 +100,7 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
         return await query.Select(c => new SelectListItem()
         {
             Value = EF.Property<int>(c, "Id").ToString(),
-            Name = EF.Property<string>(c, "Name"),
+            Text = EF.Property<string>(c, "Name"),
             Selected = id != null && EF.Property<int>(c, "Id") == (int)id
         })
         .AsNoTracking()

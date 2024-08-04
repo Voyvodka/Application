@@ -10,10 +10,10 @@ public class Warehouse : BaseEntity
     public string Name { get; set; }
 
     public int? ClientId { get; set; }
-    public Client? Client { get; set; }
+    public Client Client { get; set; }
 
     public int? CustomerId { get; set; }
-    public Customer? Customer { get; set; }
+    public Customer Customer { get; set; }
 
     public ICollection<StockMovement> StockMovements { get; set; }
 

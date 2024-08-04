@@ -1,0 +1,25 @@
+@model DateTime?
+
+@{
+    var weeknum = ViewData["weeknum"] as bool? ?? false;
+    var range = ViewData["range"] as bool? ?? false;
+    var dateFormat = ViewData["dateFormat"] as string ?? "dd-MM-yyyy H:i";
+
+    var placeholder = ViewData["placeholder"] as string ?? "Enter value";
+    var defaultValue = ViewData["defaultValue"] as DateTime? ?? null;
+
+    var flatpickerClass = "flatpickr-datetime";
+    if (weeknum) flatpickerClass += " flatpickr-weeknum";
+    if (range) flatpickerClass += " flatpickr-range";
+}
+
+<div class="form-floating mb-3">
+    @Html.TextBoxFor(m => m, new
+        {
+            @class = "form-control " + flatpickerClass,
+            placeholder = placeholder,
+            value = defaultValue?.ToString("dd-MM-yyyy H:mm"),
+            data_date_format = dateFormat
+        })
+    <label>@Html.DisplayNameFor(m => m)</label>
+</div>

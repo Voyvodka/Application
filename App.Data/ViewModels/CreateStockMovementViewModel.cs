@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using App.Data.Enums;
 using App.Data.Model.Entities.Product;
-using App.Data.ViewModels.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Data.ViewModels;
 

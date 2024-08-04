@@ -21,6 +21,6 @@ public class BaseCreateEntity : BaseEntity
 public class BaseDeleteEntity : BaseCreateEntity
 {
     public DateTime? DeletedOn { get; set; }
-    public string? DeletedById { get; set; }
-    public AppUser? DeletedBy { get; set; }
+    public string DeletedById { get; set; }
+    public AppUser DeletedBy { get; set; }
 }

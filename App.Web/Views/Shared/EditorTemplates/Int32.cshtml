@@ -1,0 +1,20 @@
+@model int?
+@{
+    var noLabel = ViewData["noLabel"] as bool? ?? false;
+
+    var placeholder = ViewData["placeholder"] as string ?? "Enter value";
+    var defaultValue = ViewData["defaultValue"] as int? ?? null;
+}
+
+<div class="form-floating mb-3">
+    @Html.TextBoxFor(m => m, new
+        {
+            @class = "form-control",
+            placeholder = placeholder,
+            value = defaultValue
+        })
+    @if (!noLabel)
+    {
+        <label>@Html.DisplayNameFor(m => m)</label>
+    }
+</div>

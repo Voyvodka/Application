@@ -6,27 +6,10 @@
             <h3 class="text-center">Ürün Oluşturma</h3>
             @Html.HiddenFor(c => c.Id)
             @Html.AntiForgeryToken()
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="@Model.Name" />
-                <label for="Name">Ürün Adı</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="@Model.Barcode" />
-                <label for="Barcode">Barkod</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="number" class="form-control" asp-for="@Model.PackageSize" />
-                <label for="PackageSize">Paket Boyutu</label>
-            </div>
-            <div class="form-floating mb-3">
-                <select class="form-select" asp-for="@Model.UnitId" aria-label="Birim">
-                    @foreach (var unit in Model.Units)
-                    {
-                        <option value="@unit.Id">@unit.Name</option>
-                    }
-                </select>
-                <label for="UnitId">Birim</label>
-            </div>
+            @Html.EditorFor(c => c.Name)
+            @Html.EditorFor(c => c.Barcode)
+            @Html.EditorFor(c => c.PackageSize)
+            <select2 v-field="@Model.UnitId" v-items="@Model.UnitList"></select2>
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-sm btn-info">Kaydet</button>
             </div>

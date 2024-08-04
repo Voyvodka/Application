@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using App.Data.ViewModels.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Services.Extenders;
 public static class EnumExtenders
@@ -27,7 +27,7 @@ public static class EnumExtenders
     /// </summary>
     /// <param name="enumType">Enum türü.</param>
     /// <returns>Enum değerlerini temsil eden SelectListItem nesnelerinin bir listesi.</returns>
-    public static List<SelectListItem> GetList(this Enum enumType)
+    public static List<SelectListItem> GetSelectList(this Enum enumType)
     {
         var enumList = new List<SelectListItem>();
         foreach (Enum value in Enum.GetValues(enumType.GetType()))
@@ -35,12 +35,11 @@ public static class EnumExtenders
             enumList.Add(new SelectListItem
             {
                 Value = Convert.ToInt32(value).ToString(),
-                Name = value.GetDisplayName(),
+                Text = value.GetDisplayName(),
                 Selected = false
             });
         }
         return enumList;
     }
-
 
 }

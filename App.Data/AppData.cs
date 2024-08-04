@@ -10,6 +10,7 @@ namespace App.Data;
 
 public class AppData : IdentityDbContext<AppUser, AppRole, string>
 {
+    public string CurrentUserId { get; set; }
     public AppData()
     {
     }

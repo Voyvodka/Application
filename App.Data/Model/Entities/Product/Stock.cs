@@ -5,22 +5,28 @@ using App.Data.Model.Entities.Base;
 using App.Data.Model.Entities.General;
 using App.Data.Model.Entities.Storage;
 using App.Data.Model.SystemEntities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Data.Model.Entities.Product;
 
 public class Stock : BaseDeleteEntity
 {
+    [Required]
+    [Display(Name = "Stock_Name")]
     public string Name { get; set; }
 
     [StringLength(50, ErrorMessage = "StringLength")]
+    [Display(Name = "Stock_Barcode")]
     public string Barcode { get; set; }
 
     [Column(TypeName = "decimal(14, 2)")]
+    [Display(Name = "Stock_PackageSize")]
     public decimal PackageSize { get; set; }
     public string PackageSizeWithUnit { get { return PackageSize.ToString("N2") + " " + UnitName; } }
 
     public int UnitId { get; set; }
     public Unit Unit { get; set; }
+    [Display(Name = "Unit_Name")]
     public string UnitName { get { return Unit?.Name; } }
 
     public int ClientId { get; set; }
@@ -30,7 +36,7 @@ public class Stock : BaseDeleteEntity
     public ICollection<StockMovement> StockMovements { get; set; }
 
     [NotMapped]
-    public List<Unit> Units { get; set; }
+    public List<SelectListItem> UnitList { get; set; }
 }
 
 public class StockMovement : BaseEntity

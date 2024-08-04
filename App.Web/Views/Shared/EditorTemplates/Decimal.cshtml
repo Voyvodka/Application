@@ -1,0 +1,36 @@
+@model decimal?
+@{
+    var placeholder = ViewData["placeholder"] as string ?? "Enter decimal value";
+    var maxLength = ViewData["maxLength"] as int? ?? 20;
+    var step = ViewData["step"] as decimal? ?? 0.01m;
+
+    var columnAttribute = ViewData.ModelMetadata.ContainerType
+    .GetProperty(ViewData.ModelMetadata.PropertyName)
+    .GetCustomAttributes(typeof(ColumnAttribute), false)
+    .FirstOrDefault() as ColumnAttribute;
+
+    string autoNumericClass = "";
+    switch (columnAttribute?.TypeName)
+    {
+        case "decimal(14, 2)":
+            autoNumericClass = "autoNumeric-decimal-14-2";
+            break;
+        case "decimal(18, 4)":
+            autoNumericClass = "autoNumeric-decimal-18-4";
+            break;
+        default:
+            autoNumericClass = "autoNumeric-default";
+            break;
+    }
+}
+
+<div class="form-floating mb-3">
+    @Html.TextBoxFor(m => m, new
+        {
+            @class = "form-control autoNumeric " + autoNumericClass,
+            placeholder = placeholder,
+            maxlength = maxLength,
+            step = step
+        })
+    <label>@Html.DisplayNameFor(m => m)</label>
+</div>
