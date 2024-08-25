@@ -29,6 +29,10 @@ public class ProductController : Controller
     {
         return View(_stockRepo.GetList().Include(c => c.Unit).ToList());
     }
+    public IActionResult List2()
+    {
+        return View(_stockRepo.GetList().Include(c => c.Unit).AsQueryable());
+    }
 
     [HttpGet]
     public async Task<IActionResult> Create(Stock stock)

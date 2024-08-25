@@ -1,0 +1,63 @@
+@model IEnumerable<Stock>
+
+<div class="card card-flush h-xl-100">
+    <div class="card-header p-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold text-gray-800">Stoklar</span>
+        </h3>
+        <div class="card-toolbar">
+            <select class="form-select" data-control="select2" id="stockListActions" data-hide-search="true"
+                data-placeholder="Aksiyonlar">
+                <option></option>
+                <option value="1"><a href='@Url.Action("Create")'>Ekle</a></option>
+                <option value="2">Hareket Girişi</option>
+            </select>
+        </div>
+    </div>
+    <div class="card-body pt-3 pb-4 px-2 px-md-4">
+        @(Html.VLib().DataGrid()
+            .ID("testTable")
+            .SetDataSource(d => d.Mvc()
+                .Controller("DataGridWebApi")
+                .LoadAction("Orders")
+                .InsertAction("InsertOrder")
+                .UpdateAction("UpdateOrder")
+                .DeleteAction("DeleteOrder")
+                .Key("OrderID")
+            )
+            .Editing(editing => {
+                editing.AllowUpdating(true);
+                editing.AllowAdding(true);
+                editing.AllowDeleting(true);
+            })
+            .AddColumn(column => column.SetHeader("ID").SetField("Id").SetWidth("10%"))
+            .AddColumn(column => column.SetHeader("Name").SetField("Name").SetWidth("30%"))
+            .AddColumn(column => column.SetHeader("celltemplate").SetField("Name").SetWidth("30%")
+                    .SetCellTemplate(value => 
+                    {
+                        var status = (string)value;
+                        return status == "Ürün 1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>";
+                    })
+            )
+            .AddPager(pager => 
+                    pager.SetPageSize(10)
+                        .Visible(true)
+                        .SetShowNavigationButtons(true)
+                        .SetShowPageSizeSelector(true)
+                        .SetAllowedPageSizes(new List<int> { 5, 10, 20 })
+                        .SetShowInfo(true)
+                        .SetTotalItems(Model.Count())
+                )
+        )
+    </div>
+</div>
+
+@* <script>
+$('#stockListActions').on('change', () => {
+const val = $('#stockListActions').val();
+if (val == 1)
+location.href = '@Url.Action("Create")';
+else if (val == 2)
+location.href = '@Url.Action("StockMovement")';
+});
+</script> *@
