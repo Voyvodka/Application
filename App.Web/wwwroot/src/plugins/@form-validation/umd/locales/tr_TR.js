@@ -1,8 +1,9 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.tr_TR = factory()));
-})(this, (function () { 'use strict';
+        typeof define === 'function' && define.amd ? define(factory) :
+            (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.tr_TR = factory()));
+})(this, (function () {
+    'use strict';
 
     /**
      * Turkish language package
@@ -107,7 +108,7 @@
                 GE: 'Georgia',
                 GI: 'Cebelitarık',
                 GL: 'Grönland',
-                GR: 'Yunansitan',
+                GR: 'Yunanistan',
                 GT: 'Guatemala',
                 HR: 'Hırvatistan',
                 HU: 'Macaristan',
@@ -179,7 +180,7 @@
                 ME: 'Karadağ',
                 MK: 'Makedonya',
                 NL: 'Hollanda',
-                PL: 'Polanya',
+                PL: 'Polonya',
                 RO: 'Romanya',
                 RS: 'Sırbistan',
                 SE: 'İsveç',
@@ -369,7 +370,7 @@
                 IT: 'İtalya',
                 MA: 'Fas',
                 NL: 'Hollanda',
-                PL: 'Polanya',
+                PL: 'Polonya',
                 PT: 'Portekiz',
                 RO: 'Romanya',
                 RU: 'Rusya',

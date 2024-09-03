@@ -33,21 +33,21 @@
             .AddColumn(column => column.SetHeader("ID").SetField("Id").SetWidth("10%"))
             .AddColumn(column => column.SetHeader("Name").SetField("Name").SetWidth("30%"))
             .AddColumn(column => column.SetHeader("celltemplate").SetField("Name").SetWidth("30%")
-                    .SetCellTemplate(value => 
-                    {
-                        var status = (string)value;
-                        return status == "Ürün 1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>";
-                    })
+                .SetCellTemplate(value => 
+                {
+                    var status = (string)value;
+                    return status == "Ürün 1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>";
+                })
             )
             .AddPager(pager => 
-                    pager.SetPageSize(10)
-                        .Visible(true)
-                        .SetShowNavigationButtons(true)
-                        .SetShowPageSizeSelector(true)
-                        .SetAllowedPageSizes(new List<int> { 5, 10, 20 })
-                        .SetShowInfo(true)
-                        .SetTotalItems(Model.Count())
-                )
+                pager.SetPageSize(10)
+                    .Visible(true)
+                    .SetShowNavigationButtons(true)
+                    .SetShowPageSizeSelector(true)
+                    .SetAllowedPageSizes(new List<int> { 5, 10, 20 })
+                    .SetShowInfo(true)
+                    .SetTotalItems(Model.Count())
+            )
         )
     </div>
 </div>

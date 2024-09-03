@@ -1,12 +1,12 @@
 namespace VLib.DataGrid.Builders.MVC;
 public class MvcDataSource
 {
-    public string _controllerName { get; private set; }
-    public string _loadAction { get; private set; }
-    public string _insertAction { get; private set; }
-    public string _updateAction { get; private set; }
-    public string _deleteAction { get; private set; }
-    public string _keyField { get; private set; }
+    private string _controllerName;
+    private string _loadAction;
+    private string _insertAction;
+    private string _updateAction;
+    private string _deleteAction;
+    private string _keyField;
 
     public MvcDataSource Controller(string controllerName)
     {

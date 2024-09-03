@@ -48,6 +48,7 @@ public class HomeController : Controller
                 Id = Guid.NewGuid().ToString(),
                 UserName = "samet",
                 Email = "smttozkn@gmail.com",
+                ClientId = client.Id,
             };
             var stat = await _userManager.CreateAsync(user, "123456");
         }

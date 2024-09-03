@@ -18,6 +18,9 @@ public class AppData : IdentityDbContext<AppUser, AppRole, string>
     {
     }
 
+    public DbSet<AppUser> AppUsers { get; set; }
+    public DbSet<UserLog> UserLogs { get; set; }
+    public DbSet<UserDevice> UserDevices { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Stock> Stocks { get; set; }
@@ -41,5 +44,17 @@ public class AppData : IdentityDbContext<AppUser, AppRole, string>
         // #endif
         base.OnConfiguring(optionsBuilder);
         optionsBuilder.EnableSensitiveDataLogging();
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Client>()
+            .HasMany(c => c.AppUsers)
+            .WithOne(u => u.Client)
+            .HasForeignKey(u => u.ClientId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 }
