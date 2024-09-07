@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace App.Api.Controllers.System;
 
-[Route("/api/Account")]
+[Route("/api/account")]
 public class AccountController : ApiBaseController
 {
     private readonly AppUserRepository _repoUser;

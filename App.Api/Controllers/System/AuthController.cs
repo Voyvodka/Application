@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace App.Api.Controllers.System;
 
 [ApiController]
-[Route("/api/Auth")]
+[Route("/api/auth")]
 public class AuthController : Controller
 {
     private readonly UserManager<AppUser> _userManager;

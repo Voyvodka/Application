@@ -1,4 +1,5 @@
 ﻿using App.Data.Model.Entities.General;
+using App.Data.Model.Entities.Product;
 using App.Data.Model.SystemEntities;
 using App.Data.ViewModels.Dto;
 
@@ -14,6 +15,10 @@ public class MappingProfile : Profile
         CreateMap<Unit, UnitDto>();
         CreateMap<Unit, ApiResultPagerModel<UnitDto>>();
         CreateMap<UnitDto, Unit>().ForMember(c => c.Id, opt => opt.Ignore());
+
+        CreateMap<Stock, StockDto>();
+        CreateMap<Stock, ApiResultPagerModel<StockDto>>();
+        CreateMap<StockDto, Stock>().ForMember(c => c.Id, opt => opt.Ignore());
 
     }
 }

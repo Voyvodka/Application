@@ -5,23 +5,21 @@ using Microsoft.AspNetCore.Http;
 namespace App.Api.Controllers.System;
 
 [ApiController]
-[Route("/api/Client")]
+[Route("/api/client")]
 [Authorize]
 public class ClientController : GenericController<Client, AppData, ClientDto>
 {
     private ClientRepository RepoItem => Repo as ClientRepository;
 
-    private readonly UserManager<AppUser> _userManager;
     private readonly ICacheService _cacheService;
 
     private AppUser ActiveClientUser => _cacheService.GetUser(User.Identity.Name);
 
-    public ClientController(AppData context, IMapper mapper, UserManager<AppUser> userManager, ICacheService cacheService)
+    public ClientController(AppData context, IMapper mapper, ICacheService cacheService)
         : base(mapper, context)
     {
         Repo = new ClientRepository(context, mapper);
 
-        _userManager = userManager;
         _cacheService = cacheService;
     }
 

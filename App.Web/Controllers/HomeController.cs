@@ -6,7 +6,6 @@ using App.Data.Model.Entities.General;
 using App.Data.Model.Entities.Product;
 using App.Data.Model.SystemEntities.User;
 using Microsoft.AspNetCore.Identity;
-using App.Data.Model.SystemEntities;
 
 namespace App.Web.Controllers;
 
@@ -52,17 +51,6 @@ public class HomeController : Controller
             };
             var stat = await _userManager.CreateAsync(user, "123456");
         }
-        var stockCount = context.Stocks.Count();
-        var stock = new Stock()
-        {
-            ClientId = client.Id,
-            CreatedOn = DateTime.Now,
-            CreatorId = user.Id,
-            Name = "Test-Stock-" + stockCount + "-" + DateTime.Now.ToString("ss"),
-            UnitId = 1,
-            PackageSize = 500
-        };
-        context.Stocks.Add(stock);
         context.SaveChanges();
 
         return RedirectToAction("Index");

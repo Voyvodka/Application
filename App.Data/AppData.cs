@@ -21,11 +21,15 @@ public class AppData : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<UserLog> UserLogs { get; set; }
     public DbSet<UserDevice> UserDevices { get; set; }
-    public DbSet<Client> Clients { get; set; }
-    public DbSet<Customer> Customers { get; set; }
+
     public DbSet<Stock> Stocks { get; set; }
     public DbSet<StockMovement> StockMovements { get; set; }
+
+    public DbSet<Client> Clients { get; set; }
     public DbSet<Unit> Units { get; set; }
+
+
+    public DbSet<Customer> Customers { get; set; }
     public DbSet<Warehouse> Warehouses { get; set; }
 
 

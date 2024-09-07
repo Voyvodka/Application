@@ -1,4 +1,4 @@
-@model IEnumerable<Stock>
+@* @model IEnumerable<Stock>
 
 <div class="card card-flush h-xl-100">
     <div class="card-header p-5">
@@ -51,13 +51,4 @@
         )
     </div>
 </div>
-
-@* <script>
-$('#stockListActions').on('change', () => {
-const val = $('#stockListActions').val();
-if (val == 1)
-location.href = '@Url.Action("Create")';
-else if (val == 2)
-location.href = '@Url.Action("StockMovement")';
-});
-</script> *@
+*@
