@@ -1,12 +1,10 @@
 using App.Data.Model.SystemEntities.User;
-using App.Data.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Data.Repositories.SystemBase.User;
 
 public class UserDeviceRepository : GenericRepositoryAsync<UserDevice>
 {
-    public UserDeviceRepository(DbContext context) : base(context)
+    public UserDeviceRepository(DbContext context, IMapper mapper) : base(context, mapper)
     {
     }
 

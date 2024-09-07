@@ -3,16 +3,16 @@ using App.Data.Model.Entities.Base;
 using App.Services.Extenders;
 using App.Services.Reflection;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Data.Repositories.Base;
 
 public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
 {
-    protected DbContext Context;
+    protected IMapper _mapper;
+    protected DbContext _context;
     protected DbSet<T> DbSet;
 
-    public AppData Conn => Context as AppData;
+    public AppData Conn => _context as AppData;
 
     private string _currentUserId;
     public string CurrentUserId
@@ -29,9 +29,10 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
     }
 
 
-    public GenericRepositoryAsync(DbContext context)
+    public GenericRepositoryAsync(DbContext context, IMapper mapper)
     {
-        Context = context;
+        _mapper = mapper;
+        _context = context;
         if (context != null)
         {
             DbSet = context.Set<T>();
@@ -44,6 +45,16 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
         if (filter != null)
             query = query.Where(filter);
         return query;
+    }
+
+    public virtual async Task<ApiResultPagerModel<Z>> GetPagedListDto<Z>(ApiListPostModel p, Expression<Func<T, bool>> filter = null)
+        where Z : class
+    {
+        return await GetList(filter)
+                .QueryResultDto<T, Z>(_mapper)
+                .ToDynamicWhereAndOrder(p)
+                .AsNoTracking()
+                .ToPagedResultAsync(p);
     }
 
     public virtual async Task<T> GetItemAsync(int id)
@@ -62,14 +73,14 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
             Digger.SetObjectValue(item, "CreatedOn", DateTime.Now);
         }
         DbSet.Add(item);
-        await Context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return true;
     }
 
     public virtual async Task<bool> EditAsync(T item)
     {
-        Context.Entry(item).State = EntityState.Modified;
-        await Context.SaveChangesAsync();
+        _context.Entry(item).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
         return true;
     }
 
@@ -81,19 +92,18 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
 
     public virtual async Task<bool> DeleteAsync(T item)
     {
-        if (Context.Entry(item).State == EntityState.Detached)
+        if (_context.Entry(item).State == EntityState.Detached)
             DbSet.Attach(item);
         DbSet.Remove(item);
-        await Context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return true;
     }
 
     public virtual async Task<List<SelectListItem>> GetSelectListItems(object id = null, Expression<Func<T, bool>> filter = null)
     {
         if (!typeof(T).IsSubclassOf(typeof(BaseEntity)))
-        {
             return [];
-        }
+
         IQueryable<T> query = DbSet.AsNoTracking();
         if (filter != null)
             query = query.Where(filter);

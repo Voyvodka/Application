@@ -1,4 +1,4 @@
-﻿namespace App.Data.Dtos.ApiResult;
+﻿namespace App.Services.Models;
 
 public class ApiResultItemModel<T> : ApiResultModel where T : class
 {

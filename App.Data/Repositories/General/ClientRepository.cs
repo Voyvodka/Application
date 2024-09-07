@@ -1,12 +1,10 @@
 using App.Data.Model.Entities.General;
-using App.Data.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Data.Repositories.General;
 
 public class ClientRepository : GenericRepositoryAsync<Client>
 {
-    public ClientRepository(DbContext context) : base(context)
+    public ClientRepository(DbContext context, IMapper mapper) : base(context, mapper)
     {
     }
 

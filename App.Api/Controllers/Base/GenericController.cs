@@ -1,6 +1,5 @@
 using App.Data.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+using App.Services.Models;
 
 public abstract class GenericController<T, U, Z> : ControllerBase
         where T : class, new()
@@ -15,7 +14,6 @@ public abstract class GenericController<T, U, Z> : ControllerBase
         _mapper = mapper;
     }
 
-    // Get a single item by ID
     [HttpGet("{id}")]
     public virtual async Task<IActionResult> Get(int id)
     {
@@ -75,41 +73,48 @@ public abstract class GenericController<T, U, Z> : ControllerBase
         return Ok(new ApiGenericResultDto(null, 200, null));
     }
 
+    [NonAction]
+    public async virtual Task<ApiResultPagerModel<Z>> OnGetDataList(ApiListPostModel postModel)
+    {
+        return await Repo.GetPagedListDto<Z>(postModel);
+    }
+
+    [HttpGet]
+    public async virtual Task<ActionResult<ApiResultPagerModel<Z>>> GetList(ApiListPostModel postModel)
+    {
+        var result = new ApiResultModel();
+        try
+        {
+            var list = await OnGetDataList(postModel);
+            if (list == null)
+            {
+                result.Result = 1;
+                return Ok(result);
+            }
+            return Ok(list);
+        }
+        catch (Exception ex)
+        {
+            result.Result = -1;
+            result.Err = ex.Message;
+        }
+        return Ok(result);
+    }
 
 
+    [HttpDelete("{id}")]
+    public virtual async Task<IActionResult> Delete(int id)
+    {
+        var item = await Repo.GetItemAsync(id);
+        if (item == null)
+            return NotFound(new ApiGenericResultDto(null, 404, $"Item with ID {id} not found"));
 
-    // // Get a list of items
-    // [HttpGet]
-    // public virtual async Task<IActionResult> GetList([FromQuery] string filter = null)
-    // {
-    //     Expression<Func<T, bool>> filterExpression = null;
-    //     if (!string.IsNullOrEmpty(filter))
-    //     {
-    //         filterExpression = item => EF.Functions.Like(item.ToString(), $"%{filter}%");
-    //     }
+        var success = await Repo.DeleteAsync(id);
+        if (!success)
+            return StatusCode(500, new ApiGenericResultDto(null, 500, "An error occurred while deleting the item"));
 
-    //     var items = Repo.GetList(filterExpression).ToList();
-    //     return Ok(new ApiGenericResultDto(items, 200, null));
-    // }
-
-
-
-
-
-    // // Delete an item
-    // [HttpDelete("{id}")]
-    // public virtual async Task<IActionResult> Delete(int id)
-    // {
-    //     var item = await Repo.GetItemAsync(id);
-    //     if (item == null)
-    //         return NotFound(new ApiGenericResultDto(null, 404, $"Item with ID {id} not found"));
-
-    //     var success = await Repo.DeleteAsync(id);
-    //     if (!success)
-    //         return StatusCode(500, new ApiGenericResultDto(null, 500, "An error occurred while deleting the item"));
-
-    //     return NoContent();
-    // }
+        return NoContent();
+    }
 
     // Helper method to get the item's ID (Override this in derived controllers if necessary)
     protected virtual int GetItemId(T item)

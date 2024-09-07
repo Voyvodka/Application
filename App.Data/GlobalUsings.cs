@@ -1,0 +1,6 @@
+global using AutoMapper;
+
+global using App.Services.Models;
+global using App.Data.Repositories.Base;
+
+global using Microsoft.EntityFrameworkCore;

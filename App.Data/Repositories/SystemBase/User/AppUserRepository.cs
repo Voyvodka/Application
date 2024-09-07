@@ -1,13 +1,11 @@
 using App.Data.Model.SystemEntities.User;
-using App.Data.Repositories.Base;
 using App.Data.ViewModels.User;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Data.Repositories.SystemBase.User;
 
 public class AppUserRepository : GenericRepositoryAsync<AppUser>
 {
-    public AppUserRepository(DbContext context) : base(context)
+    public AppUserRepository(DbContext context, IMapper mapper) : base(context, mapper)
     {
     }
 

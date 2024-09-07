@@ -4,5 +4,6 @@ namespace App.Data.Model.SystemEntities;
 
 public class Unit : BaseEntity
 {
+    public string Code { get; set; }
     public string Name { get; set; }
 }

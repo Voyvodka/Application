@@ -1,4 +1,4 @@
-﻿namespace App.Data.Dtos.ApiResult;
+﻿namespace App.Services.Models;
 
 public class ApiResultPagerModel<T> : ApiResultListModel<T> where T : class
 {

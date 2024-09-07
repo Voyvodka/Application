@@ -6,6 +6,8 @@ namespace App.Data.Repositories.Base;
 public interface IGenericRepositoryAsync<T> where T : class
 {
     IQueryable<T> GetList(Expression<Func<T, bool>> filter = null);
+    Task<ApiResultPagerModel<Z>> GetPagedListDto<Z>(ApiListPostModel p, Expression<Func<T, bool>> filter = null)
+        where Z : class;
 
     Task<T> GetItemAsync(int id);
 

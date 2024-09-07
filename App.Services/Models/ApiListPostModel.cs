@@ -1,4 +1,4 @@
-﻿namespace App.Data.Dtos.ApiResult;
+namespace App.Services.Models;
 
 public class ApiListPostModel
 {
@@ -9,11 +9,9 @@ public class ApiListPostModel
     public string OrderDir { get; set; }
     public string Filter { get; set; }
 
-
     public void SetOrderInfo(string fieldName, string order = "ASC")
     {
         OrderField = fieldName;
         OrderDir = order;
     }
 }
-

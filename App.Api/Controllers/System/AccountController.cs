@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace App.Api.Controllers;
+namespace App.Api.Controllers.System;
 
 [Route("/api/Account")]
 public class AccountController : ApiBaseController
@@ -11,12 +11,12 @@ public class AccountController : ApiBaseController
 
     private AppUser ActiveClientUser => _cacheService.GetUser(User.Identity.Name);
 
-    public AccountController(AppData context, UserManager<AppUser> userManager, ICacheService cacheService)
+    public AccountController(AppData context, IMapper mapper, UserManager<AppUser> userManager, ICacheService cacheService)
     {
         _userManager = userManager;
         _cacheService = cacheService;
 
-        _repoUser = new AppUserRepository(context);
+        _repoUser = new AppUserRepository(context, mapper);
     }
 
     [HttpGet("me")]

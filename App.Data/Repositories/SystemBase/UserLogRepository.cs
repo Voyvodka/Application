@@ -1,12 +1,10 @@
 using App.Data.Model.SystemEntities.User;
-using App.Data.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Data.Repositories.SystemBase;
 
 public class UserLogRepository : GenericRepositoryAsync<UserLog>
 {
-    public UserLogRepository(DbContext context) : base(context)
+    public UserLogRepository(DbContext context, IMapper mapper) : base(context, mapper)
     {
     }
 

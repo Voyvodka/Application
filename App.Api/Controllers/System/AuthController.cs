@@ -4,7 +4,7 @@ using App.Data.Repositories.SystemBase;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace App.Api.Controllers;
+namespace App.Api.Controllers.System;
 
 [ApiController]
 [Route("/api/Auth")]
@@ -17,15 +17,15 @@ public class AuthController : Controller
     private readonly ICacheService _cacheService;
     private readonly UserDeviceRepository _repoUserDevice;
 
-    public AuthController(AppData context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration configuration, ICacheService cacheService)
+    public AuthController(AppData context, IMapper mapper, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration configuration, ICacheService cacheService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _configuration = configuration;
         _cacheService = cacheService;
 
-        _repoLog = new UserLogRepository(context);
-        _repoUserDevice = new UserDeviceRepository(context);
+        _repoLog = new UserLogRepository(context, mapper);
+        _repoUserDevice = new UserDeviceRepository(context, mapper);
     }
 
     [HttpPost]

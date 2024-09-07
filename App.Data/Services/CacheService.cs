@@ -8,16 +8,16 @@ namespace App.Data.Services;
 
 public class CacheService : ICacheService
 {
-
     private List<Client> _clientList;
     private List<AppUser> _userList;
+    private readonly IMapper _mapper;
 
 
     public List<Client> GetClientList()
     {
         if (_clientList == null)
         {
-            var repo = new ClientRepository(new AppData());
+            var repo = new ClientRepository(new AppData(), _mapper);
             _clientList = repo.GetClientList().Result;
         }
         return _clientList;
@@ -33,7 +33,7 @@ public class CacheService : ICacheService
 
         lock (_clientList)
         {
-            var repo = new ClientRepository(new AppData());
+            var repo = new ClientRepository(new AppData(), _mapper);
             var clientItem = repo.GetItemAsync(id).Result;
             var cacheItem = _clientList.FirstOrDefault(d => d.Id == clientItem.Id);
             if (cacheItem == null)
@@ -64,7 +64,7 @@ public class CacheService : ICacheService
     {
         if (_userList == null)
         {
-            var repo = new AppUserRepository(new AppData());
+            var repo = new AppUserRepository(new AppData(), _mapper);
             _userList = repo.GetUserList().ToList();
         }
         return _userList;
@@ -83,7 +83,7 @@ public class CacheService : ICacheService
 
         lock (_userList)
         {
-            var repo = new AppUserRepository(new AppData());
+            var repo = new AppUserRepository(new AppData(), _mapper);
             var clientItem = repo.GetUserList(id).ToList();
 
             var cacheItem = _userList.Where(d => d.ClientId == id).ToList();
@@ -108,7 +108,7 @@ public class CacheService : ICacheService
 
         lock (_userList)
         {
-            var repo = new AppUserRepository(new AppData());
+            var repo = new AppUserRepository(new AppData(), _mapper);
             var clientItem = repo.GetAdminList().ToList();
 
             var cacheItem = _userList.ToList();

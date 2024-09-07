@@ -2,7 +2,7 @@ using App.Data.Model.Entities.General;
 using App.Data.Repositories.General;
 using Microsoft.AspNetCore.Http;
 
-namespace App.Api.Controllers;
+namespace App.Api.Controllers.System;
 
 [ApiController]
 [Route("/api/Client")]
@@ -19,7 +19,7 @@ public class ClientController : GenericController<Client, AppData, ClientDto>
     public ClientController(AppData context, IMapper mapper, UserManager<AppUser> userManager, ICacheService cacheService)
         : base(mapper, context)
     {
-        Repo = new ClientRepository(context);
+        Repo = new ClientRepository(context, mapper);
 
         _userManager = userManager;
         _cacheService = cacheService;
@@ -53,6 +53,5 @@ public class ClientController : GenericController<Client, AppData, ClientDto>
 
         return Ok(new ApiGenericResultDto(null, 1, "Logo updated successfully."));
     }
-
 
 }
